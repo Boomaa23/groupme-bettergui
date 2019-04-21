@@ -4,7 +4,6 @@
 	margin: 0 0 1em 0;
 	padding: 0;
 	background-color: #f2f2f2;
-	border-bottom: 1px solid #ccc;  
   display: table; 
 }
 
@@ -16,6 +15,12 @@
 
 #groupSelector li {
 	float: left; 
+	border-bottom: 1px solid #ccc;
+}
+
+#groupSelector #login {
+	margin:5px 5px 0 0;
+	float:right;
 }
 
 #groupSelector li {
@@ -35,6 +40,7 @@
 body {
   overflow:hidden;
   margin:0;
+	font-family: Arial;
 }
 
 #groupSelector {
