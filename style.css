@@ -30,6 +30,7 @@
 	font-weight: bold;
 	color: #069;
 	border-right: 1px solid #ccc; 
+	border-top: 1px solid #ccc;
 }
 
 #groupSelector li:hover {
@@ -45,4 +46,8 @@ body {
 
 #groupSelector {
   margin-bottom:2px;
+}
+
+#login {
+	text-align:right;
 }

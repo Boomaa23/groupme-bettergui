@@ -1,5 +1,6 @@
 const rootURL = 'https://api.groupme.com/v3/';
 
+var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
 mainRequest(rootURL + "groups?" + token);
@@ -14,6 +15,7 @@ function mainRequest(url) {
   request.onload = function() {
     var json = request.response;
     var list = document.createElement('ul');
+    list.id = "grp";
     for(i in json.response) {
       var src = 'groups';
       if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
@@ -33,6 +35,7 @@ function requestDM(url) {
   request.onload = function() {
     var json = request.response;
     var list = document.createElement('ul');
+    list.id = "dm";
     for(i in json.response) {
       var src = 'direct_messages?other_user_id=' + json.response[i].other_user.id;
       if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
@@ -56,7 +59,10 @@ function populateGroup(jsonObj, list, src) {
 }
 
 function finishGroupPopulate(list) {
-  document.getElementById('groupSelector').appendChild(list);
+  var grp = document.getElementById('groupSelector').appendChild(list);
+  grp.appendChild(document.createElement("br"));
+  grp.appendChild(document.createElement("br"));
+  scaleInput();
 }
 
 function embedChange(id, background_url, src) {
@@ -68,8 +74,20 @@ function embedChange(id, background_url, src) {
 
 function changeLogin() {
   var login = document.getElementById("login");
-  login.textContent = login.textContent + token.substring(6);
+  if(login.textContent === "Logged in as: ") { 
+    login.textContent = login.textContent + nameGlobal;
+  }
+  login.appendChild(document.createElement('br'));
+  var dm = document.createElement('input');
+  dm.type = 'checkbox';
+  var a = document.createElement('a');
+  a.textContent = "Display DMs";
+  login.appendChild(a);
+  login.appendChild(dm);
+  scaleInput();
 }
 
-document.getElementById("msgSend").size = document.documentElement.clientWidth / 7.25;
-document.getElementById("embed").height = document.documentElement.clientHeight - 80;
+function scaleInput() {
+  document.getElementById("embed").height = document.documentElement.clientHeight - document.getElementById("groupSelector").clientHeight - document.getElementById("msgSend").clientHeight - 20;
+  document.getElementById("msgSend").size = document.documentElement.clientWidth / 7.25;
+}

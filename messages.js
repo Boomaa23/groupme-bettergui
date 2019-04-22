@@ -7,13 +7,13 @@ var maxCount;
 var currCount = 0;
 
 if(src === "groups") {
-channelRequest(rootURL + "" + src + "/" + getQueryVariable("id") + "/messages?limit=50&" + token);
-window.onscroll = function(ev) {
-  if (window.scrollY <= 0 && currCount < maxCount) {
-    channelRequest(rootURL + "" + src + "/" + getQueryVariable("id") + "/messages?limit=20&before_id=" + lastMsg + "&" + token);
-    window.scrollTo(0, 1);
-  }
-};
+  channelRequest(rootURL + "" + src + "/" + getQueryVariable("id") + "/messages?limit=50&" + token);
+  window.onscroll = function(ev) {
+    if (window.scrollY <= 0 && currCount < maxCount) {
+      channelRequest(rootURL + "" + src + "/" + getQueryVariable("id") + "/messages?limit=20&before_id=" + lastMsg + "&" + token);
+      window.scrollTo(0, 1);
+    }
+  };
 } else {
   channelRequest(rootURL + "" + src + "&" + token);
   window.onscroll = function(ev) {
@@ -23,8 +23,6 @@ window.onscroll = function(ev) {
     }
   };
 }
-
-  
 
 function channelRequest(url) {
   var request = new XMLHttpRequest();
