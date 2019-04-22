@@ -109,6 +109,7 @@ function changeLogin() {
   var logout = document.createElement('input');
   logout.type = 'submit';
   logout.value = 'Logout';
+  logoutForm.style.display = 'inline';
   logoutForm.appendChild(logout);
   login.appendChild(logoutForm);
   scaleInput();
