@@ -104,6 +104,13 @@ function changeLogin() {
       scaleInput();
     }
   });
+  var logoutForm = document.createElement('form');
+  logoutForm.action = 'logout.php';
+  var logout = document.createElement('input');
+  logout.type = 'submit';
+  logout.value = 'Logout';
+  logoutForm.appendChild(logout);
+  login.appendChild(logoutForm);
   scaleInput();
 }
 
