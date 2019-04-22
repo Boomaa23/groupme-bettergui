@@ -36,6 +36,7 @@ function requestDM(url) {
     var json = request.response;
     var list = document.createElement('ul');
     list.id = "dm";
+    list.style.display = "none";
     for(i in json.response) {
       var src = 'direct_messages?other_user_id=' + json.response[i].other_user.id;
       if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
@@ -78,7 +79,6 @@ function finishGroupPopulate(list) {
   var grp = document.getElementById('groupSelector').appendChild(list);
   grp.appendChild(document.createElement("br"));
   grp.appendChild(document.createElement("br"));
-  document.getElementById("dm").style.display = "none";
   scaleInput();
 }
 
@@ -101,13 +101,14 @@ function changeLogin() {
   dm.addEventListener( 'change', function() {
     if(this.checked) {
       document.getElementById("dm").style.display = "";
+      scaleInput();
     } else {
       document.getElementById("dm").style.display = "none";
+      scaleInput();
     }
   });
   scaleInput();
 }
-
 
 function scaleInput() {
   document.getElementById("embed").height = document.documentElement.clientHeight - document.getElementById("groupSelector").clientHeight - document.getElementById("msgSend").clientHeight - 20;
