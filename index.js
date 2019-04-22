@@ -5,7 +5,7 @@ var src = 'groups';
 
 mainRequest(rootURL + "groups?" + token);
 requestDM(rootURL + "chats?" + token);
-changeLogin();
+requestName(rootURL + "users/me?" + token);
 
 function mainRequest(url) {
   var request = new XMLHttpRequest();
@@ -47,6 +47,22 @@ function requestDM(url) {
   }
 }
 
+function requestName(url) {
+  var request = new XMLHttpRequest();
+  request.open('GET', url);
+  request.responseType = 'json';
+  request.send();
+  request.onload = function() {
+    if (request.readyState == 4 && request.status == 200) {
+      var nameTemp = JSON.stringify(request.response.response.name);
+      nameTemp = nameTemp.substring(1, nameTemp.length - 1);
+      var login = document.getElementById("login");
+      login.textContent = login.textContent + nameTemp;
+      changeLogin();
+    }
+  }
+}
+
 function populateGroup(jsonObj, list, src) {
   var title = document.createElement('li');
   title.textContent = "" + jsonObj['name'];
@@ -62,6 +78,7 @@ function finishGroupPopulate(list) {
   var grp = document.getElementById('groupSelector').appendChild(list);
   grp.appendChild(document.createElement("br"));
   grp.appendChild(document.createElement("br"));
+  document.getElementById("dm").style.display = "none";
   scaleInput();
 }
 
@@ -74,9 +91,6 @@ function embedChange(id, background_url, src) {
 
 function changeLogin() {
   var login = document.getElementById("login");
-  if(login.textContent === "Logged in as: ") { 
-    login.textContent = login.textContent + nameGlobal;
-  }
   login.appendChild(document.createElement('br'));
   var dm = document.createElement('input');
   dm.type = 'checkbox';
@@ -84,8 +98,16 @@ function changeLogin() {
   a.textContent = "Display DMs";
   login.appendChild(a);
   login.appendChild(dm);
+  dm.addEventListener( 'change', function() {
+    if(this.checked) {
+      document.getElementById("dm").style.display = "";
+    } else {
+      document.getElementById("dm").style.display = "none";
+    }
+  });
   scaleInput();
 }
+
 
 function scaleInput() {
   document.getElementById("embed").height = document.documentElement.clientHeight - document.getElementById("groupSelector").clientHeight - document.getElementById("msgSend").clientHeight - 20;
