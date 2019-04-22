@@ -19,7 +19,7 @@ function mainRequest(url) {
     for(i in json.response) {
       var src = 'groups';
       if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
-        embedChange(json.response[i]['id'], null, src);
+        embedChange(json.response[0].id, null, src);
       }
       populateGroup(json.response[i], list, src);
     }
@@ -39,9 +39,6 @@ function requestDM(url) {
     list.style.display = "none";
     for(i in json.response) {
       var src = 'direct_messages?other_user_id=' + json.response[i].other_user.id;
-      if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
-        embedChange(json.response[i].other_user.id, null, src);
-      }
       populateGroup(json.response[i].other_user, list, src);
     }
     finishGroupPopulate(list);

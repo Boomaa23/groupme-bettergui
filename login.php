@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <link rel="icon" type="image/ico" href="https://web.groupme.com/images/favicon.ico">
+  <title>GroupMe BetterGUI</title>
+</head>
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
@@ -14,6 +18,9 @@
         }
         $token = isset($_GET['access_token']) ? $_GET['access_token'] : $_POST['token'];
         file_put_contents("dotenv.js", 'const token = "token=' . $token . '";');
+        if(!file_exists('id.js')) {
+          file_put_contents("id.js", "");
+        }
         header("refresh:0;url=index.html");
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
