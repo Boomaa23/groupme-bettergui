@@ -95,6 +95,7 @@ function changeLogin() {
   a.textContent = "Display DMs";
   login.appendChild(a);
   login.appendChild(dm);
+  
   dm.addEventListener( 'change', function() {
     if(this.checked) {
       document.getElementById("dm").style.display = "";
@@ -104,13 +105,23 @@ function changeLogin() {
       scaleInput();
     }
   });
-  var logoutForm = document.createElement('form');
-  logoutForm.action = 'logout.php';
+  
+  var logoutPost = document.createElement('input');
+  logoutPost.style.display = 'none';
+  logoutPost.type = 'text';
+  logoutPost.name = 'logout';
+  logoutPost.value = 'yes';
+  
   var logout = document.createElement('input');
   logout.type = 'submit';
   logout.value = 'Logout';
+  
+  var logoutForm = document.createElement('form');
+  logoutForm.action = 'login.php';
   logoutForm.style.display = 'inline';
+  logoutForm.method = 'post';
   logoutForm.appendChild(logout);
+  logoutForm.appendChild(logoutPost);
   login.appendChild(logoutForm);
   scaleInput();
 }
