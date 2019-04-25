@@ -3,6 +3,11 @@ const rootURL = 'https://api.groupme.com/v3/';
 var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
+if(typeof token === 'undefined') {
+  console.log("s");
+  window.location.href = "login.php";
+}
+
 mainRequest(rootURL + "groups?" + token);
 requestDM(rootURL + "chats?" + token);
 requestName(rootURL + "users/me?" + token);

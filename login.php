@@ -18,25 +18,31 @@
           ftruncate(fopen('dotenv.js', "r+"), 0);
         }
         $token = isset($_GET['access_token']) ? $_GET['access_token'] : $_POST['token'];
+        if($token === "") {
+          echo '<a>Please log in using your access token or OAuth:</a><br />';
+          echo 'Token: <input type="text" id="token" name="token"></input>';
+          echo '<input type="submit"><a>';
+          echo '<b> OR </b></a><a href="https://oauth.groupme.com/oauth/authorize?client_id=3iOCIP8KHemfBNPgYtckc3vcfjNKb17adgj0fBHMpLR9l1CF">OAuth Auto-Login</a><br /><br />';
+          echo '<a><b>No token entered or retrieved through OAuth. Please try again.</b></a>';
+          return;
+        }
         file_put_contents("dotenv.js", 'const token = "token=' . $token . '";');
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }
-        header("refresh:0;url=index.html");
+        header("refresh:0;url=index.html?login");
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
         echo 'Token: <input type="text" id="token" name="token"></input>';
+        echo '<input type="submit"><a>';
+        if(!isset($_GET['access_token'])) {
+          echo '<b> OR </b></a><a href="https://oauth.groupme.com/oauth/authorize?client_id=3iOCIP8KHemfBNPgYtckc3vcfjNKb17adgj0fBHMpLR9l1CF">OAuth Auto-Login</a>';
+        }
       }
-    ?>
-    <input type="submit"><a>
-    <?php 
-      if(!isset($_GET['access_token'])) {
-        echo '<b> OR </b></a><a href="https://oauth.groupme.com/oauth/authorize?client_id=3iOCIP8KHemfBNPgYtckc3vcfjNKb17adgj0fBHMpLR9l1CF">OAuth Auto-Login</a>';
+
+      if(isset($_POST['logout'])) {
+        echo '<br /><br /><b><a>Logged out successfully!</a></b>';
       }
-     
-     if(isset($_POST['logout'])) {
-       echo '<br /><br /><b><a>Logged out successfully!</a></b>';
-     }
    ?>
   </form>
   
