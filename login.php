@@ -13,6 +13,12 @@
       if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
       }
+      if(isset($_POST['redirect'])) {
+        if(file_exists('dotenv.js') && sizeof(file('dotenv.js')) > 0 
+          && file('dotenv.js')[2] === 'const ip = "' . $_SERVER['REMOTE_ADDR'] . '";') {
+            file_put_contents("dotenv.js","");
+        }
+      }
       if(isset($_GET['access_token']) || isset($_POST['token'])) {
         if(file_exists('dotenv.js')) {
           ftruncate(fopen('dotenv.js', "r+"), 0);
@@ -26,7 +32,7 @@
           echo '<a><b>No token entered or retrieved through OAuth. Please try again.</b></a>';
           return;
         }
-        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";');
+        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . $_SERVER['REMOTE_ADDR'] . '";');
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }

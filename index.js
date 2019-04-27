@@ -4,8 +4,7 @@ var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
 if(typeof token === 'undefined') {
-  console.log("s");
-  window.location.href = "login.php";
+  window.location.href = "login.php?redirect";
 }
 
 mainRequest(rootURL + "groups?" + token);
