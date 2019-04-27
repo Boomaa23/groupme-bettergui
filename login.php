@@ -14,7 +14,7 @@
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
       $ip = file_get_contents("https://api.ipify.org/");
-      echo $ip;
+      echo 
       if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
       }
