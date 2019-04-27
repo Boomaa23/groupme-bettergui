@@ -73,7 +73,7 @@ function getIP() {
   request.onload = function() {
     if (request.readyState == 4) {
       if(request.response != ip) {
-        window.location.href = "login.php?badip";
+        window.location.href = "login.php";
       }
     }
   }

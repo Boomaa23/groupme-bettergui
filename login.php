@@ -13,7 +13,7 @@
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
-      if(isset($_POST['logout']) || isset($_GET['badip'])) {
+      if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
       }
       if(isset($_GET['access_token']) || isset($_POST['token'])) {
