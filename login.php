@@ -14,7 +14,6 @@
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
       $ip = getIpAddress();
-      $ip = substr($ip, 0, -1);
       echo $ip;
       if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
