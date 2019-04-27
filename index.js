@@ -4,7 +4,7 @@ var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
 if(typeof token === 'undefined' || typeof ip === 'undefined') {
-  window.location.href = "login.php?notoken";
+  //window.location.href = "login.php?notoken";
 }
 
 getIP();
@@ -68,7 +68,8 @@ function requestName(url) {
 
 function getIP() {
   var request = new XMLHttpRequest();
-  request.open('GET', "https://api.ipify.org/");
+  request.open('GET', "http://httpbin.org/ip");
+  request.responseType = 'json';
   request.send();
   request.onload = function() {
     var chk = request.status;
@@ -76,8 +77,9 @@ function getIP() {
       chk = request.status;
     }
     if (request.readyState == 4) {
-      if(request.response != ip) {
-        window.location.href = "login.php?badip=" + ip + "&goodip=" + request.response;
+      var resp = JSON.stringify(request.response.origin).split(',');
+      if(resp[resp.length-1] != ip) {
+        window.location.href = "login.php?badip=" + ip + "&goodip=" + resp[resp.length-1];
       }
     }
   }
