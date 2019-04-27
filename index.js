@@ -81,7 +81,7 @@ function getIP() {
       var lastip = resp[resp.length-1].substring(1, resp[resp.length-1].length - 1).trim();
       console.log(lastip);
       if(lastip != ip) {
-        window.location.href = "login.php?badip=" + ip + "&goodip=" + lastip;
+        window.location.href = "login.php?badip";
       }
     }
   }
