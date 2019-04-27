@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="cache-control" content="max-age=0">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="-1">
-  <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
-  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   
   <link rel="icon" type="image/ico" href="https://web.groupme.com/images/favicon.ico">
   <title>GroupMe BetterGUI</title>
@@ -19,8 +17,7 @@
       if(isset($_GET['access_token']) || isset($_POST['token'])) {
         if(file_exists('dotenv.js')) {
           ftruncate(fopen('dotenv.js', "r+"), 0);
-        } else {
-          file_put_contents('dotenv.js', PHP_EOL . 'const ip = "' .  getIPAddress() . '";');
+            file_put_contents('dotenv.js', 'const token = "token="' . PHP_EOL . 'const ip = "' .  getIPAddress() . '";');
         }
         $token = isset($_GET['access_token']) ? $_GET['access_token'] : $_POST['token'];
         if($token === "") {
