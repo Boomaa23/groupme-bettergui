@@ -68,7 +68,7 @@ function requestName(url) {
 
 function getIP() {
   var request = new XMLHttpRequest();
-  request.open('GET', "http://httpbin.org/ip");
+  request.open('GET', "https://httpbin.org/ip");
   request.responseType = 'json';
   request.send();
   request.onload = function() {
