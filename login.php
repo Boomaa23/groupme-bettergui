@@ -13,7 +13,8 @@
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
-      $ip = file_get_contents("https://api.ipify.org/");
+      $ip = getIpAddress();
+      $ip = substr($ip, 0, -1);
       echo $ip;
       if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
@@ -49,6 +50,16 @@
       if(isset($_POST['logout'])) {
         echo '<br /><br /><b><a>Logged out successfully!</a></b>';
       }
+      
+      function getIpAddress() {
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            return trim(end($ipAddresses));
+        }
+        else {
+            return $_SERVER['REMOTE_ADDR'];
+        }
+    }
    ?>
   </form>
   
