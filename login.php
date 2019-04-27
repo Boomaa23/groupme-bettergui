@@ -13,8 +13,6 @@
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
-      $ip = getIpAddress();
-      echo $ip;
       if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
       }
@@ -31,7 +29,7 @@
           echo '<a><b>No token entered or retrieved through OAuth. Please try again.</b></a>';
           return;
         }
-        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . $ip . '";');
+        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . getIPAddress() . '";');
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }
@@ -50,7 +48,7 @@
         echo '<br /><br /><b><a>Logged out successfully!</a></b>';
       }
       
-      function getIpAddress() {
+      function getIPAddress() {
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
             return trim(end($ipAddresses));

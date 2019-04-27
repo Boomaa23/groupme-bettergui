@@ -3,8 +3,8 @@ const rootURL = 'https://api.groupme.com/v3/';
 var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
-if(typeof token === 'undefined' || typeof ip === 'undefined') {
-  //window.location.href = "login.php?notoken";
+if(typeof token === 'undefined' && typeof ip === 'undefined') {
+  window.location.href = "login.php?notoken";
 }
 
 getIP();
