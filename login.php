@@ -13,13 +13,8 @@
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
-      if(isset($_POST['logout'])) {
+      if(isset($_POST['logout']) || isset($_GET['badip'])) {
         file_put_contents("dotenv.js","");
-      }
-      if(isset($_POST['redirect'])) {
-        if(file('dotenv.js')[1] !== 'const ip = "' . $_SERVER['REMOTE_ADDR'] . '";') {
-            file_put_contents("dotenv.js","");
-        }
       }
       if(isset($_GET['access_token']) || isset($_POST['token'])) {
         if(file_exists('dotenv.js')) {
@@ -38,7 +33,8 @@
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }
-        header("refresh:0;url=index.html?login");
+        echo '<a>Redirecting in 2 seconds...</a>';
+        header("refresh:2;url=index.html");
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
         echo 'Token: <input type="text" id="token" name="token"></input>';

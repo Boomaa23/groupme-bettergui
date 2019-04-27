@@ -2,10 +2,9 @@ const rootURL = 'https://api.groupme.com/v3/';
 
 var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
-var usrIP = ip;
 
-if(typeof token === 'undefined') {
-  //window.location.href = "login.php?redirect";
+if(typeof token === 'undefined' || typeof ip === 'undefined') {
+  window.location.href = "login.php";
 }
 
 getIP();
@@ -74,7 +73,7 @@ function getIP() {
   request.onload = function() {
     if (request.readyState == 4) {
       if(request.response != ip) {
-        window.location.href = "login.php?redirect";
+        window.location.href = "login.php?badip";
       }
     }
   }
