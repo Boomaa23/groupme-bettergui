@@ -13,6 +13,8 @@
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
+      $ip = file_get_contents("https://api.ipify.org/");
+      echo $ip;
       if(isset($_POST['logout'])) {
         file_put_contents("dotenv.js","");
       }
@@ -29,7 +31,7 @@
           echo '<a><b>No token entered or retrieved through OAuth. Please try again.</b></a>';
           return;
         }
-        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . file_get_contents("https://api.ipify.org") . '";');
+        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . $ip . '";');
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }
