@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
+  <meta http-equiv="cache-control" content="max-age=0">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="-1">
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
+  <meta http-equiv="pragma" content="no-cache">
+  
   <link rel="icon" type="image/ico" href="https://web.groupme.com/images/favicon.ico">
   <title>GroupMe BetterGUI</title>
 </head>
@@ -14,8 +17,7 @@
         file_put_contents("dotenv.js","");
       }
       if(isset($_POST['redirect'])) {
-        if(file_exists('dotenv.js') && sizeof(file('dotenv.js')) > 0 
-          && file('dotenv.js')[2] === 'const ip = "' . $_SERVER['REMOTE_ADDR'] . '";') {
+        if(file('dotenv.js')[1] !== 'const ip = "' . $_SERVER['REMOTE_ADDR'] . '";') {
             file_put_contents("dotenv.js","");
         }
       }
@@ -32,7 +34,7 @@
           echo '<a><b>No token entered or retrieved through OAuth. Please try again.</b></a>';
           return;
         }
-        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . $_SERVER['REMOTE_ADDR'] . '";');
+        file_put_contents("dotenv.js", 'const token = "token=' . $token . '";' . PHP_EOL . 'const ip = "' . file_get_contents("https://api.ipify.org") . '";');
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }

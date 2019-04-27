@@ -2,11 +2,13 @@ const rootURL = 'https://api.groupme.com/v3/';
 
 var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
+var usrIP = ip;
 
 if(typeof token === 'undefined') {
-  window.location.href = "login.php?redirect";
+  //window.location.href = "login.php?redirect";
 }
 
+getIP();
 mainRequest(rootURL + "groups?" + token);
 requestDM(rootURL + "chats?" + token);
 requestName(rootURL + "users/me?" + token);
@@ -61,6 +63,19 @@ function requestName(url) {
       var login = document.getElementById("login");
       login.textContent = login.textContent + nameTemp;
       changeLogin();
+    }
+  }
+}
+
+function getIP() {
+  var request = new XMLHttpRequest();
+  request.open('GET', "https://api.ipify.org/");
+  request.send();
+  request.onload = function() {
+    if (request.readyState == 4) {
+      if(request.response != ip) {
+        window.location.href = "login.php?redirect";
+      }
     }
   }
 }
