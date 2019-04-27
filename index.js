@@ -71,6 +71,10 @@ function getIP() {
   request.open('GET', "https://api.ipify.org/");
   request.send();
   request.onload = function() {
+    var chk = request.status;
+    while(chk !== 200) {
+      chk = request.status;
+    }
     if (request.readyState == 4) {
       if(request.response != ip) {
         window.location.href = "login.php";
