@@ -19,6 +19,8 @@
       if(isset($_GET['access_token']) || isset($_POST['token'])) {
         if(file_exists('dotenv.js')) {
           ftruncate(fopen('dotenv.js', "r+"), 0);
+        } else {
+          file_put_contents('dotenv.js', PHP_EOL . 'const ip = "' .  getIPAddress() . '";');
         }
         $token = isset($_GET['access_token']) ? $_GET['access_token'] : $_POST['token'];
         if($token === "") {
