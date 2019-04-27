@@ -34,7 +34,7 @@
           file_put_contents("id.js", "");
         }
         echo '<a>Redirecting in 2 seconds...</a>';
-        header("refresh:2;url=index.html");
+        header("refresh:2;url=index.html?login");
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
         echo 'Token: <input type="text" id="token" name="token"></input>';
@@ -49,14 +49,11 @@
       }
       
       function getIPAddress() {
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            return trim(end($ipAddresses));
-        }
-        else {
-            return $_SERVER['REMOTE_ADDR'];
-        }
-    }
+        $rawrtn = file_get_contents("https://httpbin.org/ip");
+        $rtnip = json_decode($rawrtn)->origin;
+        $allip = explode (", ", $rtnip);
+        return $allip[sizeof($allip) - 1];
+      }
    ?>
   </form>
   

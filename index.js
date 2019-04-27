@@ -4,7 +4,7 @@ var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
 if(typeof token === 'undefined' && typeof ip === 'undefined') {
-  window.location.href = "login.php?notoken";
+  //window.location.href = "login.php?notoken";
 }
 
 getIP();
@@ -81,7 +81,7 @@ function getIP() {
       var lastip = resp[resp.length-1].substring(1, resp[resp.length-1].length - 1).trim();
       console.log(lastip);
       if(lastip != ip) {
-        window.location.href = "login.php?badip";
+        //window.location.href = "login.php?badip";
       }
     }
   }
