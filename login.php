@@ -11,9 +11,6 @@
 <body>
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <?php 
-      if(isset($_POST['logout'])) {
-        file_put_contents("dotenv.js","");
-      }
       if(isset($_GET['access_token']) || isset($_POST['token'])) {
         if(file_exists('dotenv.js')) {
           ftruncate(fopen('dotenv.js', "r+"), 0);
@@ -45,23 +42,28 @@
       }
 
       if(isset($_POST['logout'])) {
+        file_put_contents("dotenv.js","");
         echo '<br /><br /><b><a>Logged out successfully!</a></b>';
+      }
+      
+      if(isset($_GET['badip'])) {
+        file_put_contents("dotenv.js","");
+        echo '<br /><br /><b><a>Non-matching IP found from last user. Please log in again.</a></b>';
       }
       
       function getIPAddress() {
         if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
           return  $_SERVER["HTTP_X_FORWARDED_FOR"];  
-        } else if (array_key_exists('REMOTE_ADDR', $_SERVER)) { 
+        } else if (array_key_exists('REMOTE_ADDR', $_SERVER) && $_SERVER["REMOTE_ADDR"] !== "::1") { 
           return $_SERVER["REMOTE_ADDR"]; 
         } else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
           return $_SERVER["HTTP_CLIENT_IP"]; 
-        } 
-
-       return '';
-        /*$rawrtn = file_get_contents("https://httpbin.org/ip");
-        $rtnip = json_decode($rawrtn)->origin;
-        $allip = explode (", ", $rtnip);
-        return $allip[sizeof($allip) - 1];*/
+        } else {
+          $rawrtn = file_get_contents("https://httpbin.org/ip");
+          $rtnip = json_decode($rawrtn)->origin;
+          $allip = explode (", ", $rtnip);
+          return $allip[sizeof($allip) - 1];
+        }
       }
    ?>
   </form>
