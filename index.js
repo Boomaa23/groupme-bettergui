@@ -80,7 +80,8 @@ function getIP() {
       var resp = JSON.stringify(request.response.origin).split(',');
       var lastip = resp[resp.length-1].substring(1, resp[resp.length-1].length - 1).trim();
       if(lastip != ip) {
-        window.location.href = "login.php?badip";
+        console.log(lastip + " | " + ip);
+        //window.location.href = "login.php?badip";
       }
     }
   }
