@@ -4,7 +4,7 @@ var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
 if(typeof token === 'undefined' && typeof ip === 'undefined') {
-  if(typeof getQueryVariable('login') !== 'undefined') {
+  if(typeof getRedirVar('login') !== 'undefined') {
     location.reload(true);
   } else {
     window.location.href = "login.php?notoken";
@@ -160,7 +160,7 @@ function scaleInput() {
   document.getElementById("msgSend").size = document.documentElement.clientWidth / 7.25;
 }
 
-function getQueryVariable(variable) {
+function getRedirVar(variable) {
   var urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(variable);
 }
