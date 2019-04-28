@@ -29,9 +29,8 @@
         if(!file_exists('id.js')) {
           file_put_contents("id.js", "");
         }
-        echo '<a>Redirecting in 2 seconds...</a>';
         $url = "index.html?login=" . time();
-        header("refresh:2;url=" . $url);
+        header("refresh:0;url=" . $url);
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
         echo 'Token: <input type="text" id="token" name="token"></input>';
