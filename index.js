@@ -3,8 +3,13 @@ const rootURL = 'https://api.groupme.com/v3/';
 var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
-if(typeof token === 'undefined' || typeof ip === 'undefined') {
-  window.location.href = "login.php";
+if(typeof token === 'undefined' && typeof ip === 'undefined') {
+  var urlParams = new URLSearchParams(window.location.search);
+  if(typeof(urlParams.get('login') === "null")){
+    window.location.href = "login.php?notoken";
+  } else {
+    location.reload(true);
+  }
 }
 
 getIP();
@@ -23,7 +28,7 @@ function mainRequest(url) {
     list.id = "grp";
     for(i in json.response) {
       var src = 'groups';
-      if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
+      if(document.getElementById("embed").src === '') {
         embedChange(json.response[0].id, null, src);
       }
       populateGroup(json.response[i], list, src);
@@ -68,7 +73,8 @@ function requestName(url) {
 
 function getIP() {
   var request = new XMLHttpRequest();
-  request.open('GET', "https://api.ipify.org/");
+  request.open('GET', "https://httpbin.org/ip");
+  request.responseType = 'json';
   request.send();
   request.onload = function() {
     var chk = request.status;
@@ -76,8 +82,10 @@ function getIP() {
       chk = request.status;
     }
     if (request.readyState == 4) {
-      if(request.response != ip) {
-        window.location.href = "login.php";
+      var resp = JSON.stringify(request.response.origin).split(',');
+      var lastip = resp[resp.length-1].substring(1, resp[resp.length-1].length - 1).trim();
+      if(lastip != ip) {
+        window.location.href = "login.php?badip";
       }
     }
   }
