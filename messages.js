@@ -77,8 +77,3 @@ function populateMessages(jsonObj) {
     }
   }
 }
-
-function getQueryVariable(variable) {
-  var urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(variable);
-}

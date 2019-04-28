@@ -4,7 +4,11 @@ var fullWidth = document.documentElement.clientWidth / 7.25;
 var src = 'groups';
 
 if(typeof token === 'undefined' && typeof ip === 'undefined') {
-  window.location.href = "login.php?notoken";
+  if(typeof getQueryVariable('login') !== 'undefined') {
+    location.reload(true);
+  } else {
+    window.location.href = "login.php?notoken";
+  }
 }
 
 getIP();
@@ -154,4 +158,9 @@ function changeLogin() {
 function scaleInput() {
   document.getElementById("embed").height = document.documentElement.clientHeight - document.getElementById("groupSelector").clientHeight - document.getElementById("msgSend").clientHeight - 20;
   document.getElementById("msgSend").size = document.documentElement.clientWidth / 7.25;
+}
+
+function getQueryVariable(variable) {
+  var urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(variable);
 }
