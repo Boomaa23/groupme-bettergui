@@ -3,9 +3,9 @@
 <head>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
+  <meta http-equiv="Expires" content="-1" />
   
-  <link rel="icon" type="image/ico" href="https://web.groupme.com/images/favicon.ico">
+  <link rel="icon" type="image/ico" href="favicon.ico">
   <title>GroupMe BetterGUI</title>
 </head>
 <body>
@@ -30,7 +30,8 @@
           file_put_contents("id.js", "");
         }
         $url = "index.html?login=" . time();
-        header("refresh:0;url=" . $url);
+        echo '<a><b>Redirecting in 2 seconds...</b></a>';
+        header("refresh:2;url=" . $url);
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
         echo 'Token: <input type="text" id="token" name="token"></input>';

@@ -23,7 +23,7 @@ function mainRequest(url) {
     list.id = "grp";
     for(i in json.response) {
       var src = 'groups';
-      if(document.getElementById("embed").src.split('/').reverse()[0] === "temp.txt") {
+      if(document.getElementById("embed").src === '') {
         embedChange(json.response[0].id, null, src);
       }
       populateGroup(json.response[i], list, src);
