@@ -33,7 +33,8 @@
           file_put_contents("id.js", "");
         }
         echo '<a>Redirecting in 2 seconds...</a>';
-        header("refresh:2;url=index.html?login");
+        $url = "index.html?login=" . time();
+        header("refresh:2;url=" . $url);
       } else {
         echo '<a>Please log in using your access token or OAuth:</a><br />';
         echo 'Token: <input type="text" id="token" name="token"></input>';
