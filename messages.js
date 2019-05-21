@@ -61,10 +61,11 @@ function populateMessages(jsonObj) {
       
     if(typeof jsonObj[i].attachments[0] !== 'undefined' && jsonObj[i].attachments[0].type === 'image'){
       container.appendChild(name);
-      var img = document.createElement('a');
+      container.appendChild(document.createElement("br"));
+      var img = document.createElement('img');
       img.href = "" + jsonObj[i].attachments[0].url;
-      img.textContent = "IMAGE";
-      img.target = "_BLANK";
+      img.src = jsonObj[i].attachments[0].url;
+      img.width = document.documentElement.clientWidth/3;
       if(jsonObj[i].text !== 'null') {
         var msg = document.createElement('span');
         msg.textContent = jsonObj[i].text;
