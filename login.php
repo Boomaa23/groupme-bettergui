@@ -49,14 +49,18 @@
             <input type="submit" style="padding:4px;"><a>
           </div>
           <b> OR </b></a><a href="https://oauth.groupme.com/oauth/authorize?client_id=3iOCIP8KHemfBNPgYtckc3vcfjNKb17adgj0fBHMpLR9l1CF">OAuth Auto-Login</a>';
-          if(isset($_POST['logout'])) { echo '<br /><br /><b><div>Logged out successfully!</div></b>'; }
-          if($tokennull) { echo '<br /><br /><div><b>Bad authentication token. Please try again.</b></div>'; }
+          if(isset($_POST['logout'])) { 
+            file_put_contents("dotenv.js","");
+            echo '<br /><br /><b><div>Logged out successfully!</div></b>'; 
+          }
+          if($tokennull) { 
+            echo '<br /><br /><div><b>Bad authentication token. Please try again.</b></div>'; 
+          }
+          if(isset($_GET['badip'])) {
+            file_put_contents("dotenv.js","");
+            echo '<br /><br /><b><div>Non-matching IP found from last user. Please log in again.</div></b>';
+          }
         echo '</div>';
-      }
-      
-      if(isset($_GET['badip'])) {
-        file_put_contents("dotenv.js","");
-        echo '<br /><br /><b><a>Non-matching IP found from last user. Please log in again.</a></b>';
       }
       
       function getIPAddress() {
