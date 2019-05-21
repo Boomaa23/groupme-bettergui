@@ -54,7 +54,13 @@ function requestName(url) {
   var request = new XMLHttpRequest();
   request.open('GET', url);
   request.responseType = 'json';
+  request.onerror = function() {
+    if(request.readyState == 4 && request.status == 0){
+      window.location.href = "login.php?access_token"
+    }
+  }
   request.send();
+  
   request.onload = function() {
     if (request.readyState == 4 && request.status == 200) {
       var nameTemp = JSON.stringify(request.response.response.name);
