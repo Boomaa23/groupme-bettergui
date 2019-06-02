@@ -58,7 +58,7 @@ async function populateMessages(jsonObj) {
     for(var j = 0;j < jsonObj[i].favorited_by.length;j++) {
       while(typeof members === undefined) {
         channelRequest(rootURL + "groups/" + getQueryVariable("id") + "?" + token, true);
-        await sleep(1000);
+        await sleep(500);
       }
       for(var k = 0;k < members.length;k++) {
         if(members[k].user_id === jsonObj[i].favorited_by[j]) {
@@ -70,7 +70,6 @@ async function populateMessages(jsonObj) {
         }
       }
     }
-    //name.title =  JSON.stringify(jsonObj[i].favorited_by);
     if(jsonObj[i].text !== 'null' && jsonObj[i].attachments.length === 0) {
       container.appendChild(name);
       msg.textContent = jsonObj[i].text;

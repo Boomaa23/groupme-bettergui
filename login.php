@@ -49,7 +49,7 @@
             <input type="submit" style="padding:4px;"><a>
           </div>
           <b> OR </b></a><a href="https://oauth.groupme.com/oauth/authorize?client_id=3iOCIP8KHemfBNPgYtckc3vcfjNKb17adgj0fBHMpLR9l1CF">OAuth Auto-Login</a>';
-          if(isset($_POST['logout'])) { 
+          if(isset($_POST['logout']) || isset($_GET['logout'])) { 
             file_put_contents("dotenv.js","");
             echo '<br /><br /><b><div>Logged out successfully!</div></b>'; 
           }
