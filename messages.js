@@ -9,6 +9,7 @@ var lastMsg;
 var maxCount;
 var currCount = 0;
 
+var currGroupOrDM = getQueryVariable("id");
 var isDM = src.includes("direct_messages");
 var isGroup = src.includes("group");
 
@@ -64,6 +65,7 @@ async function populateMessages(jsonObj) {
     currCount++;
     var container = document.createElement('p');
     var msg = document.createElement('span');
+    var a = document.createElement('a');
     var name = document.createElement('b');
     name.textContent = jsonObj[i].name + ": ";
     for(var j = 0;j < jsonObj[i].favorited_by.length;j++) {
@@ -93,7 +95,34 @@ async function populateMessages(jsonObj) {
         container.style.color = "gray";
         msg.style.color = "gray";
       }
-      group.insertBefore(container, group.childNodes[0]).appendChild(msg);
+      
+      var msgText = msg.textContent;
+      var linkStart = msgText.indexOf('http');
+      var linkEnd = msgText.indexOf(' ', linkStart + 1);
+      var rtnLinkEnd = msgText.indexOf('\n', linkStart + 1);
+      if(rtnLinkEnd < linkEnd) {
+        linkEnd = rtnLinkEnd;
+      }
+      
+      if(linkStart != -1) {
+        if(linkEnd == -1) {
+          linkEnd = msgText.length;
+          msg.textContent = " " + msg.textContent;
+        }
+        var linkText = msgText.substring(linkStart, linkEnd);
+        a.href = linkText;
+        a.textContent = linkText;
+        msg.textContent = msgText.substring(0, linkStart);
+        
+        group.insertBefore(container, group.childNodes[0]).appendChild(msg);
+        group.insertBefore(container, group.childNodes[0]).appendChild(a);
+        
+        var endMsg = document.createElement('span');
+        endMsg.textContent = msgText.substring(linkEnd, msgText.length);
+        group.insertBefore(container, group.childNodes[0]).appendChild(endMsg);
+      } else {
+        group.insertBefore(container, group.childNodes[0]).appendChild(msg);
+      }
     }
       
     if(typeof jsonObj[i].attachments[0] !== 'undefined' && jsonObj[i].attachments[0].type === 'image'){

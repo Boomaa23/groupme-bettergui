@@ -2,7 +2,11 @@ var input = document.getElementById("msgSend");
 
 input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
-    mainRequest(rootURL + "groups/" + idGlobal + "/messages?" + token);
+    if(isDM) {
+      mainRequest(rootURL + "direct_messages?" + token);
+    } else {
+      mainRequest(rootURL + "groups/" + currGroupOrDM + "/messages?" + token);
+    }
   }
 });
 
@@ -22,7 +26,12 @@ function mainRequest(url) {
 function getSendData() {
   var uuid = getUUID();
   var text = input.value;
-  return JSON.stringify({ "message": { "source_guid": uuid, "text": text, "attachments": []}});
+  if(isDM) {
+    return JSON.stringify({ "message": { "source_guid": uuid, "recipient_id": currGroupOrDM, "text": text, "attachments": []}});
+  } else {
+    return JSON.stringify({ "message": { "source_guid": uuid, "text": text, "attachments": []}});
+  }
+  
 }
 
 function S4() {
